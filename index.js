@@ -19,11 +19,14 @@ var library = [{
   +"fire in Shamus Award—winning author Lynn Hightower's chilling thriller."
   }];
 
+function ready(){
+  var element = document.getElementById('content');
+  console.log(element);
+}
+
+document.addEventListener("DOMContentLoaded", ready);
+
+
 $('#FirstModal').modal('show');
 $('#SecondModal').modal('show');
 $('#ThirddModal').modal('show');
-
-console.log(document);
-console.log(document.documentElement);
-console.log(document.body);
-console.log(document.head);
