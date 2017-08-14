@@ -24,8 +24,7 @@ function createbook(library){
     var parentElem = document.getElementById('content-test');
     var elementbook = document.createElement('div');
     elementbook.className = "col-md-4";
-    elementbook.innerHTML = '<img  class="img-rounded" src='+elem.cover
-  +'alt="The Paper Book"><h3>'+elem.name+'</h3><p align="justify">'
+    elementbook.innerHTML = '<img  class="img-rounded" src='+elem.cover+' alt="The Paper Book"><h3>'+elem.name+'</h3><p align="justify">'
   +elem.description+'</p> <!-- Button trigger modal -->'
   +'<button type="button" class="btn btn-primary" data-toggle="modal"'
   +'data-target="#FirstModal">View more </button>';
