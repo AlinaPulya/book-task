@@ -17,7 +17,8 @@ var library = [{
       her daughter disappears, Olivia must confront the demonic force that
       has cursed her family.`
    },
-    dataTarget: '#firstModal'
+    dataTarget: 'firstModal',
+    id: 'firstModalLabel'
 }, {
     name: 'Even in Darkness',
     cover: 'img/book_2.bmp',
@@ -37,7 +38,8 @@ var library = [{
         individual who knows far too much about the skeletons in Joy's
         closet. Then people start disappearing ...`
     },
-    dataTarget: '#secondModal'
+    dataTarget: 'secondModal',
+    id: 'secondModalLabel'
 }, {
     name: 'Flashpoint',
     cover: 'img/book_3.bmp',
@@ -64,10 +66,11 @@ var library = [{
         past. As the criminal's monstrous plan becomes chillingly apparent,
         Sonora must risk everything to corner a cunning killer.`
       },
-    dataTarget: '#thirdModal'
+    dataTarget: 'thirdModal',
+    id: 'thirdModalLabel'
 }];
 
-function createbook (library) {
+function createBook (library) {
   library.forEach(function (elem) {
 
         const parentElem = document.getElementById('appearBook');
@@ -83,14 +86,31 @@ function createbook (library) {
         elementBook.innerHTML = `<img  class="${imgClassBootstrap}" src=${coverBook}
         alt="${nameBook}"><h3>${nameBook}</h3><p align="justify">
         ${descriptionShort}</p><button type="button" class="btn btn-primary"
-         data-toggle="modal" data-target="${dataTargetBook}">View more </button>`;
+        data-toggle="modal" data-target="#${dataTargetBook}" id="showMore"
+        onclick="openModal()">Show more</button>`;
 
         parentElem.appendChild(elementBook);
     });
 }
 
+function createModal (library) {
+
+  var elementModal = document.getElementById('modal');
+  elementModal.setAttribute('id', library.dataTarget);
+  var nameModal = document.getElementById('modalLabel');
+  nameModal.innerHTML = library.name;
+
+  var descriptionFull = library.description.full;
+
+  var infoModal = document.getElementById('modal-body');
+  infoModal.innerHTML = library.description.full;
+
+}
+
+
 function ready () {
-    createbook(library);
+    createBook(library);
+    createModal(library[1]);
 }
 
 document.addEventListener('DOMContentLoaded', ready);
@@ -98,4 +118,4 @@ document.addEventListener('DOMContentLoaded', ready);
 
 $('#firstModal').modal('show');
 $('#secondModal').modal('show');
-$('#thirddModal').modal('show');
+$('#thirdModal').modal('show');
