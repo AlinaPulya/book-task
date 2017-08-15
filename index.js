@@ -77,10 +77,10 @@ function createbook (library) {
         var descriptionShort = elem.description.short;
         var descriptionFull = elem.description.full;
         var dataTargetBook = elem.dataTarget;
-        var imgClassBootstrap = '"img-rounded"';
+        var imgClassBootstrap = 'img-rounded';
 
         elementBook.className = 'col-md-4';
-        elementBook.innerHTML = `<img  class=${imgClassBootstrap} src=${coverBook}
+        elementBook.innerHTML = `<img  class="${imgClassBootstrap}" src=${coverBook}
         alt="${nameBook}"><h3>${nameBook}</h3><p align="justify">
         ${descriptionShort}</p><button type="button" class="btn btn-primary"
          data-toggle="modal" data-target="${dataTargetBook}">View more </button>`;
