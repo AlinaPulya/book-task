@@ -87,7 +87,7 @@ function createBook (library) {
         alt="${nameBook}"><h3>${nameBook}</h3><p align="justify">
         ${descriptionShort}</p><button type="button" class="btn btn-primary"
         data-toggle="modal" data-target="#${dataTargetBook}" id="showMore"
-        onclick="openModal()">Show more</button>`;
+        >Show more</button>`;
 
         parentElem.appendChild(elementBook);
     });
@@ -96,6 +96,7 @@ function createBook (library) {
 function createModal (library) {
 
   var elementModal = document.getElementById('modal');
+
   elementModal.setAttribute('id', library.dataTarget);
   var nameModal = document.getElementById('modalLabel');
   nameModal.innerHTML = library.name;
@@ -110,12 +111,14 @@ function createModal (library) {
 
 function ready () {
     createBook(library);
-    createModal(library[1]);
+    library.forEach(function (elem){
+      createModal(elem);
+    });
+    /*
+    for(var i=0; i < 3; i++)
+    {
+      createModal(library[i]);
+    }*/
 }
 
 document.addEventListener('DOMContentLoaded', ready);
-
-
-$('#firstModal').modal('show');
-$('#secondModal').modal('show');
-$('#thirdModal').modal('show');
