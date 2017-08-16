@@ -1,5 +1,5 @@
 var library = [{
-    name: 'The Paper',
+    name: 'The Piper',
     cover: 'img/book_1.bmp',
     description: {
       short: `In this bone-chilling tale of terror from Shamus
@@ -78,7 +78,6 @@ function createBook (library) {
         var coverBook = elem.cover;
         var nameBook = elem.name;
         var descriptionShort = elem.description.short;
-        var descriptionFull = elem.description.full;
         var dataTargetBook = elem.dataTarget;
         var imgClassBootstrap = 'img-rounded';
 
@@ -95,26 +94,43 @@ function createBook (library) {
 
 function createModal (library) {
 
-  var elementModal = document.getElementById('modal');
+  library.forEach(function (elem){
+    const parentElem  = document.getElementById('modalWrapper');
+    var elementModal = document.createElement('div');
 
-  elementModal.setAttribute('id', library.dataTarget);
-  var nameModal = document.getElementById('modalLabel');
-  nameModal.innerHTML = library.name;
+    var modalId = elem.id;
+    var modalDataTarget = elem.dataTarget;
+    var descriptionFull = elem.description.full;
+    var nameBook = elem.name;
 
-  var descriptionFull = library.description.full;
-
-  var infoModal = document.getElementById('modal-body');
-  infoModal.innerHTML = library.description.full;
-
+    elementModal.innerHTML = `<div class="modal fade" id="${modalDataTarget}"
+    tabindex="-1" role="dialog" aria-labelledby="${modalId}" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="${modalId}">${nameBook}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">${descriptionFull}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>`
+    parentElem.appendChild(elementModal);
+  });
 }
 
 
 function ready () {
     createBook(library);
-    library.forEach(function (elem){
-      createModal(elem);
-    });
-    /*
+    createModal(library);
+
+      /*
     for(var i=0; i < 3; i++)
     {
       createModal(library[i]);
