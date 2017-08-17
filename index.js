@@ -9,7 +9,7 @@ var library = [{
       thriller writer Lynn Hightower, a devoted mother must confront the
       paranormal forces that have cursed her family...When Olivia James
       receives a phone call just after midnight, she recognizes her
-      brother’s voice. But there’s a problem: her brother has been dead
+      brother’s voice. But there’s a problem: her brother has been dead 
       for the past nine weeks. Moving back to her old childhood home in
       Tennessee - the place where her brother has just died - her young
       daughter Teddy seems troubled, telling her mother that she’s being
@@ -87,6 +87,7 @@ function createBook (library) {
         ${descriptionShort}</p><button type="button" class="btn btn-primary"
         data-toggle="modal" data-target="#${dataTargetBook}" id="showMore"
         >Show more</button>`;
+
 
         parentElem.appendChild(elementBook);
     });
