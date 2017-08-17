@@ -127,8 +127,8 @@ function createModal (library) {
 
 
 function ready () {
-    createBook(library);
-    createModal(library);
+  createBook(library);
+  createModal(library);
 
       /*
     for(var i=0; i < 3; i++)
