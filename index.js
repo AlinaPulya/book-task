@@ -2,10 +2,10 @@ const library = [{
     name: 'The Piper',
     cover: 'img/book_1.bmp',
     description: {
-      short: `In this bone-chilling tale of terror from Shamus
+        short: `In this bone-chilling tale of terror from Shamus
       Award-winning thriller writer Lynn Hightower, a devoted mother
       must confront the paranormal forces that have cursed her family...`,
-      full: `In this bone-chilling tale of terror from Shamus Award-winning
+        full: `In this bone-chilling tale of terror from Shamus Award-winning
       thriller writer Lynn Hightower, a devoted mother must confront the
       paranormal forces that have cursed her family...When Olivia James
       receives a phone call just after midnight, she recognizes her
@@ -16,18 +16,17 @@ const library = [{
       visited by a menacing ghost. When another tragic death occurs and
       her daughter disappears, Olivia must confront the demonic force that
       has cursed her family.`
-   },
-    dataTarget: 'firstModal',
-    id: 'firstModalLabel'
+    },
+    dataTarget: 'firstModal'
 }, {
     name: 'Even in Darkness',
     cover: 'img/book_2.bmp',
     description: {
-      short: `Joy Miller, once a famed TV evangelist, retired years,
+        short: `Joy Miller, once a famed TV evangelist, retired years,
         before when two tragedies struck her family: the first leading her
         husband to suicide the second leaving her son dead and his wife and
         daughter estranged from her...`,
-      full: `Joy Miller, once a famed TV evangelist, retired years
+        full: `Joy Miller, once a famed TV evangelist, retired years
         before when two tragedies struck her family: the first leading her
         husband to suicide the second leaving her son dead and his wife and
         daughter estranged from her...She now lives a lonely, reclusive
@@ -38,16 +37,15 @@ const library = [{
         individual who knows far too much about the skeletons in Joy's
         closet. Then people start disappearing ...`
     },
-    dataTarget: 'secondModal',
-    id: 'secondModalLabel'
+    dataTarget: 'secondModal'
 }, {
     name: 'Flashpoint',
     cover: 'img/book_3.bmp',
     description: {
-      short: `A New York Times Notable Book: Cincinnati homicide
+        short: `A New York Times Notable Book: Cincinnati homicide
         detective Sonora Blair hunts a serial killer who's playing with
         fire in Shamus Award—winning author Lynn Hightower's chilling thriller.`,
-      full: `A New York Times Notable Book: Cincinnati homicide
+        full: `A New York Times Notable Book: Cincinnati homicide
         detective Sonora Blair hunts a serial killer who's playing with
         fire in Shamus Award—winning author Lynn Hightower's chilling
         thriller. A single mother of two children and a police specialist
@@ -65,15 +63,13 @@ const library = [{
         psychopath knows intimate details about Sonora's family and her
         past. As the criminal's monstrous plan becomes chillingly apparent,
         Sonora must risk everything to corner a cunning killer.`
-      },
-    dataTarget: 'thirdModal',
-    id: 'thirdModalLabel'
+    },
+    dataTarget: 'thirdModal'
 }];
 
 function createBook (library) {
-  library.forEach(function (elem) {
-
-    let parentElem = document.getElementById('appearBook');
+  library.forEach(elem => {
+    const parentElem = document.getElementById('appearBook');
     let elementBook = document.createElement('div');
     let coverBook = elem.cover;
     let nameBook = elem.name;
@@ -82,40 +78,31 @@ function createBook (library) {
     let imgClassBootstrap = 'img-rounded';
 
     elementBook.className = 'col-md-4';
-    elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${coverBook} alt="${nameBook}">`+
-    `<h3>${nameBook}</h3>`+
-    `<p align="justify">${descriptionShort}</p>`+
-    `<button type="button" class="btn btn-primary"`+
-    ` data-toggle="modal" id="${dataTargetBook}">Show more</button>`;
-
+    elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${coverBook} alt="${nameBook}">` +
+    `<h3>${nameBook}</h3>` +
+    `<p align="justify">${descriptionShort}</p>` +
+    `<button type="button" class="btn btn-primary"` +
+    ` data-toggle="modal" data-id="${dataTargetBook}">Show more</button>`;
     parentElem.appendChild(elementBook);
-    });
+  });
 }
 
 function showModal (elem) {
-
-  let modalTitle = document.querySelector("h5.modal-title");
-  modalTitle.innerHTML = elem.name;
-
-  let modalContent = document.querySelector("div.modal-body");
-  modalContent.innerHTML = elem.description.full;
+    let modalTitle = document.querySelector('h5.modal-title');
+    modalTitle.innerHTML = elem.name;
+    let modalContent = document.querySelector('div.modal-body');
+    modalContent.innerHTML = elem.description.full;
+    $('#modal').modal('show');
 }
 
 
-function ready () {
+function ready() {
   createBook(library);
-  document.getElementById('firstModal').onclick = function(){
-    showModal(library[0]);
-    $('#modal').modal('show');
-  }
-  document.getElementById('secondModal').onclick = function(){
-    showModal(library[1]);
-    $('#modal').modal('show');
-  }
-  document.getElementById('thirdModal').onclick = function(){
-    showModal(library[2]);
-    $('#modal').modal('show');
-  }
+  document.getElementById('appearBook').addEventListener("click", event => {
+    const id = event.target.getAttribute('data-id');
+    const book = library.find(item => item.dataTarget === id);
+    showModal(book);
+});
 }
 
 document.addEventListener('DOMContentLoaded', ready);
