@@ -8,10 +8,8 @@ span.lead{
   text-transform: uppercase;
 }
 form.form-inline{
-  margin-left: 200px;
   margin-top: 20px;
   margin-bottom: 20px;
-
 }
 .col-md-4{
   border-left: 1px solid gray;
