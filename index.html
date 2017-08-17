@@ -12,135 +12,67 @@
     <title>Book library</title>
 </head>
 <body>
-  <h1>New English library</h1>
-  <p class="lead">
-    Fiction: Crime
-  </p>
 
-  <form class="form-inline">
-    <div class="form-group">
-      <label class="sr-only" for="inputEmail">Email address</label>
-      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-    </div>
-    <div class="form-group">
-      <label class="sr-only" for="inputPassword">Password</label>
-      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-    </div>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox"> Remember me
-      </label>
-    </div>
-    <button type="submit" class="btn btn-default">Sign in</button>
-</form>
+  <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-3">New English Library</h1>
+    <p ><span class="lead">Fiction: Crime.</span> Crime fiction is the literary genre that
+      fictionalises crimes, their detection, criminals, and their motives.
+      It is usually distinguished from mainstream fiction and other genres
+      such as historical fiction or science fiction, but the boundaries are
+      indistinct. Crime fiction has multiple subgenres, including detective
+       fiction (such as the whodunit), courtroom drama, hard-boiled fiction
+       and legal thrillers. Suspense and mystery are key elements that are
+       nearly ubiquitous to the genre.</p>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="col-md-6">
+  </div>
+  <div class="col-md-6">
+    <form class="form-inline">
+      <div class="form-group">
+        <label class="sr-only" for="inputEmail">Email address</label>
+        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+      <button type="submit" class="btn btn-default">Sign in</button>
+  </form>
+  </div>
+</div>
 
   <div  class="container-fluid">
     <div id="appearBook" class="row">
     </div>
   </div>
 
-          <!-- Modal -->
-          <div class="modal fade" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="firstModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="firstModalLabel">The Paper</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <p align="justify">
-                      In this bone-chilling tale of terror from Shamus Award-winning thriller
-                     writer Lynn Hightower, a devoted mother must confront the paranormal
-                     forces that have cursed her family...
-                     When Olivia James receives a phone call just after midnight,
-                     she recognizes her brother’s voice. But there’s a problem:
-                     her brother has been dead for the past nine weeks. Moving back
-                     to her old childhood home in Tennessee--the place where her
-                     brother has just died--her young daughter Teddy seems troubled,
-                     telling her mother that she’s being visited by a menacing ghost.
-                     When another tragic death occurs and her daughter disappears,
-                     Olivia must confront the demonic force that has cursed her family.
-                  </p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
+  <!-- Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-
-
-          <!-- Modal -->
-          <div class="modal fade" id="secondModal" tabindex="-1" role="dialog" aria-labelledby="secondModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="secondModalLabel">Even in Darkness</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <p align="justify">
-                    Joy Miller, once a famed TV evangelist, retired years before when two
-                    tragedies struck her family: the first leading her husband to suicide;
-                    the second leaving her son dead and his wife and daughter estranged
-                    from her...
-                    She now lives a lonely, reclusive life, until a package arrives in the
-                    mail containing graphic photographs of three people she knew long ago
-                    - all brutally murdered. When Joy reads the note in the package, she
-                    knows immediately who it's from: a ghost from her past, a dangerous
-                    individual who knows far too much about the skeletons in Joy's
-                    closet. Then people start disappearing ...
-                  </p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
+          <div class="modal-body">
           </div>
-
-
-          <div class="modal fade" id="thirdModal" tabindex="-1" role="dialog" aria-labelledby="thirdModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thirdModalLabel">Flashpoint</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <p align="justify">
-                    A New York Times Notable Book: Cincinnati homicide detective Sonora
-                    Blair hunts a serial killer who's playing with fire in Shamus
-                    Award—winning author Lynn Hightower's chilling thriller.
-                    A single mother of two children and a police specialist with the
-                    Cincinnati Homicide Division, Sonora Blair is still awake in the
-                    middle of the night when the call comes in. Mark Daniels has been
-                    found in Mount Airy Forest handcuffed to the steering wheel of
-                    his car, doused with accelerant, and set on fire. As the hideously
-                    burned college student lies dying in the ER, he describes his killer:
-                    blond, female, and a total stranger. But Mark may not have been the
-                    intended victim.
-                    Evidence points to a sexual fixation on his older brother, Keaton,
-                    a teacher currently separated from his wife. Then the murderer—who
-                    has been dubbed "Flash" by the media—calls Sonora one night, taunting
-                    and mocking her. As the investigation heats up, the harassment
-                    continues. The female psychopath knows intimate details about Sonora's
-                    family and her past. As the criminal's monstrous plan becomes
-                    chillingly apparent, Sonora must risk everything to corner a cunning killer.
-                  </p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
+        </div>
+      </div>
+    </div>
 
 </body>
 </html>
