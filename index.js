@@ -1,4 +1,4 @@
-var library = [{
+const library = [{
     name: 'The Piper',
     cover: 'img/book_1.bmp',
     description: {
@@ -9,7 +9,7 @@ var library = [{
       thriller writer Lynn Hightower, a devoted mother must confront the
       paranormal forces that have cursed her family...When Olivia James
       receives a phone call just after midnight, she recognizes her
-      brother’s voice. But there’s a problem: her brother has been dead 
+      brother’s voice. But there’s a problem: her brother has been dead
       for the past nine weeks. Moving back to her old childhood home in
       Tennessee - the place where her brother has just died - her young
       daughter Teddy seems troubled, telling her mother that she’s being
@@ -73,69 +73,49 @@ var library = [{
 function createBook (library) {
   library.forEach(function (elem) {
 
-        const parentElem = document.getElementById('appearBook');
-        var elementBook = document.createElement('div');
-        var coverBook = elem.cover;
-        var nameBook = elem.name;
-        var descriptionShort = elem.description.short;
-        var dataTargetBook = elem.dataTarget;
-        var imgClassBootstrap = 'img-rounded';
+    let parentElem = document.getElementById('appearBook');
+    let elementBook = document.createElement('div');
+    let coverBook = elem.cover;
+    let nameBook = elem.name;
+    let descriptionShort = elem.description.short;
+    let dataTargetBook = elem.dataTarget;
+    let imgClassBootstrap = 'img-rounded';
 
-        elementBook.className = 'col-md-4';
-        elementBook.innerHTML = `<img  class="${imgClassBootstrap}" src=${coverBook}
-        alt="${nameBook}"><h3>${nameBook}</h3><p align="justify">
-        ${descriptionShort}</p><button type="button" class="btn btn-primary"
-        data-toggle="modal" data-target="#${dataTargetBook}" id="showMore"
-        >Show more</button>`;
+    elementBook.className = 'col-md-4';
+    elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${coverBook} alt="${nameBook}">`+
+    `<h3>${nameBook}</h3>`+
+    `<p align="justify">${descriptionShort}</p>`+
+    `<button type="button" class="btn btn-primary"`+
+    ` data-toggle="modal" id="${dataTargetBook}">Show more</button>`;
 
-
-        parentElem.appendChild(elementBook);
+    parentElem.appendChild(elementBook);
     });
 }
 
-function createModal (library) {
+function showModal (elem) {
 
-  library.forEach(function (elem){
-    const parentElem  = document.getElementById('modalWrapper');
-    var elementModal = document.createElement('div');
+  let modalTitle = document.querySelector("h5.modal-title");
+  modalTitle.innerHTML = elem.name;
 
-    var modalId = elem.id;
-    var modalDataTarget = elem.dataTarget;
-    var descriptionFull = elem.description.full;
-    var nameBook = elem.name;
-
-    elementModal.innerHTML = `<div class="modal fade" id="${modalDataTarget}"
-    tabindex="-1" role="dialog" aria-labelledby="${modalId}" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="${modalId}">${nameBook}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">${descriptionFull}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>`
-    parentElem.appendChild(elementModal);
-  });
+  let modalContent = document.querySelector("div.modal-body");
+  modalContent.innerHTML = elem.description.full;
 }
 
 
 function ready () {
   createBook(library);
-  createModal(library);
-
-      /*
-    for(var i=0; i < 3; i++)
-    {
-      createModal(library[i]);
-    }*/
+  document.getElementById('firstModal').onclick = function(){
+    showModal(library[0]);
+    $('#modal').modal('show');
+  }
+  document.getElementById('secondModal').onclick = function(){
+    showModal(library[1]);
+    $('#modal').modal('show');
+  }
+  document.getElementById('thirdModal').onclick = function(){
+    showModal(library[2]);
+    $('#modal').modal('show');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', ready);
