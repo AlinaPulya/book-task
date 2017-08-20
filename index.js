@@ -1,7 +1,7 @@
-function bookSearch(){
+let books = new Array();
+
+function bookSearch () {
   let search = document.getElementById('search').value;
-  let results = document.getElementById('resultsSearch');
-  console.log(search);
 
   $.ajax({
     url: "https://www.googleapis.com/books/v1/volumes?q=" + search,
@@ -15,11 +15,7 @@ function bookSearch(){
         createBook(data.items[i]);
       }
 
-      document.getElementById('appearBook').addEventListener("click", event => {
-        const id = event.target.getAttribute('data-id');
-        const book = data.items.find(item => item.id === id);
-        showModal(book);
-        });
+      books = JSON.parse(JSON.stringify(data.items));
 
       console.log(data);
     },
@@ -47,14 +43,22 @@ function createBook (elem) {
 
 function showModal (elem) {
   let modalTitle = document.querySelector('h5.modal-title');
-  modalTitle.innerHTML = elem.volumeInfo.title;
   let modalContent = document.querySelector('div.modal-body');
+
+  modalTitle.innerHTML = elem.volumeInfo.title;
   modalContent.innerHTML = elem.volumeInfo.description;
-    $('#modal').modal('show');
+  $('#modal').modal('show');
 }
 
 function ready() {
+
   document.getElementById('buttonSearch').addEventListener('click', bookSearch, false);
+
+  document.getElementById('appearBook').addEventListener("click", event => {
+    const id = event.target.getAttribute('data-id');
+    const book = books.find(item => item.id === id);
+    showModal(book);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', ready);
