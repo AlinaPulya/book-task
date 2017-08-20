@@ -7,6 +7,10 @@ function bookSearch(){
     url: "https://www.googleapis.com/books/v1/volumes?q=" + search,
     dataType: "json",
     success: function (data) {
+
+      const parentElem = document.getElementById('appearBook');
+      parentElem.innerHTML = "";
+
       for(let i = 0; i < data.items.length; i++){
         createBook(data.items[i]);
       }
