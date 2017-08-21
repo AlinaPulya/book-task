@@ -1,4 +1,4 @@
-let books = new Array();
+let books = [];
 
 function bookSearch () {
   const search = document.getElementById('search').value;
