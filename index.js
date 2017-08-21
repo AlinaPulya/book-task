@@ -1,15 +1,17 @@
 let books = new Array();
 
 function bookSearch () {
-  let search = document.getElementById('search').value;
+  const search = document.getElementById('search').value;
+
+  const googleBooks = "https://www.googleapis.com/books/v1/volumes?q=";
 
   $.ajax({
-    url: "https://www.googleapis.com/books/v1/volumes?q=" + search,
-    dataType: "json",
+    url: 'https://www.googleapis.com/books/v1/volumes?q=${search}',
+    dataType: 'json',
     success: function (data) {
 
       const parentElem = document.getElementById('appearBook');
-      parentElem.innerHTML = "";
+      parentElem.innerHTML = '';
 
       for(let i = 0; i < data.items.length; i++){
         createBook(data.items[i]);
@@ -19,18 +21,18 @@ function bookSearch () {
 
       console.log(data);
     },
-    type: "GET"
+    type: 'GET'
   })
 }
 
 function createBook (elem) {
     const parentElem = document.getElementById('appearBook');
     let elementBook = document.createElement('div');
-    let coverBook = elem.volumeInfo.imageLinks.thumbnail;
-    let nameBook = elem.volumeInfo.title;
-    let publisher = elem.volumeInfo.publisher;
-    let dataBookId = elem.id;
-    let imgClassBootstrap = 'img-rounded';
+    const coverBook = elem.volumeInfo.imageLinks.thumbnail;
+    const nameBook = elem.volumeInfo.title;
+    const publisher = elem.volumeInfo.publisher;
+    const dataBookId = elem.id;
+    const imgClassBootstrap = 'img-rounded';
 
     elementBook.className = 'col-md-4';
     elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${coverBook} alt="${nameBook}">` +
@@ -54,7 +56,7 @@ function ready() {
 
   document.getElementById('buttonSearch').addEventListener('click', bookSearch, false);
 
-  document.getElementById('appearBook').addEventListener("click", event => {
+  document.getElementById('appearBook').addEventListener('click', event => {
     const id = event.target.getAttribute('data-id');
     const book = books.find(item => item.id === id);
     showModal(book);
