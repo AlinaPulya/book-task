@@ -3,10 +3,8 @@ let books = new Array();
 function bookSearch () {
   const search = document.getElementById('search').value;
 
-  const googleBooks = "https://www.googleapis.com/books/v1/volumes?q=";
-
   $.ajax({
-    url: 'https://www.googleapis.com/books/v1/volumes?q=${search}',
+    url: `https://www.googleapis.com/books/v1/volumes?q=${search}`,
     dataType: 'json',
     success: function (data) {
 
