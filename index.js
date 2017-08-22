@@ -1,12 +1,14 @@
 let books = [];
+let start = 0;
+let step = 12;
 
 function bookSearch () {
   const search = document.getElementById('search').value;
 
   $.ajax({
-    url: `https://www.googleapis.com/books/v1/volumes?q=${search}`,
+    url: `https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${start}&maxResults=${step}`,
     dataType: 'json',
-    success: function (data) {
+    success: data => {
 
       const parentElem = document.getElementById('appearBook');
       parentElem.innerHTML = '';
@@ -17,8 +19,28 @@ function bookSearch () {
 
       books = JSON.parse(JSON.stringify(data.items));
 
-      console.log(data);
+      console.log(data.items[0]);
     },
+    type: 'GET'
+  })
+}
+function bookMore () {
+  const search = document.getElementById('search').value;
+
+  start += step;
+
+  $.ajax({
+    url: `https://www.googleapis.com/books/v1/volumes?q=${search}&startIndex=${start}&maxResults=${step}`,
+    dataType: 'json',
+    success: data => {
+
+      for(let i = 0; i < data.items.length; i++){
+        createBook(data.items[i]);
+      }
+      books=[...books,...data.items];
+
+    },
+
     type: 'GET'
   })
 }
@@ -53,6 +75,7 @@ function showModal (elem) {
 function ready() {
 
   document.getElementById('buttonSearch').addEventListener('click', bookSearch, false);
+  document.getElementById('loadMore').addEventListener('click', bookMore, false);
 
   document.getElementById('appearBook').addEventListener('click', event => {
     const id = event.target.getAttribute('data-id');
