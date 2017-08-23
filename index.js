@@ -3,21 +3,26 @@ let start = 0;
 let step = 12;
 const mainURL = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-function makeAJAX () {
+function fetchBooks() {
   const search = document.getElementById('search').value;
 
-  $.ajax({
-    url: `${mainURL}${search}&startIndex=${start}&maxResults=${step}`,
-    dataType: 'json',
-    success: data => {
+  let params = encodeURIComponent(search) + '&startIndex=' + encodeURIComponent(start) +
+  '&maxResults=' + encodeURIComponent(step);
 
+  var request = new XMLHttpRequest();
+
+  request.open('GET', 'https://www.googleapis.com/books/v1/volumes?q='+params, true);
+
+
+  request.onreadystatechange = function (data) {
+    //if ((request.readyState === 4) && (request.status === 200)){
+      data = JSON.parse(request.responseText);
       for (let i = 0; i < data.items.length; i++) {
         createBook(data.items[i]);
       }
       books = [...data.items];
-    },
-    type: 'GET'
-  })
+  }
+  request.send();
 }
 
 function bookSearch () {
@@ -25,12 +30,12 @@ function bookSearch () {
   const parentElem = document.getElementById('appearBook');
   parentElem.innerHTML = '';
 
-  makeAJAX();
+  fetchBooks();
 }
 
 function bookMore () {
   start += step;
-  makeAJAX();
+  fetchBooks();
 }
 
 function createBook (elem) {
