@@ -14,16 +14,17 @@ function fetchBooks() {
   request.open('GET', 'https://www.googleapis.com/books/v1/volumes?q='+params, true);
 
 
-  request.onreadystatechange = function (data) {
-    //if ((request.readyState === 4) && (request.status === 200)){
-      data = JSON.parse(request.responseText);
-      for (let i = 0; i < data.items.length; i++) {
-        createBook(data.items[i]);
-      }
-      books = [...data.items];
+
+  request.onreadystatechange = function() {
+    let data = JSON.parse(request.responseText);
+    for (let i = 0; i < data.items.length; i++) {
+      createBook(data.items[i]);
+    }
+    books = [...data.items];
   }
   request.send();
 }
+
 
 function bookSearch () {
   start = 0;
