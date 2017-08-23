@@ -1,26 +1,36 @@
 let books = [];
+let start = 0;
+let step = 12;
+const mainURL = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-function bookSearch () {
+function makeAJAX () {
   const search = document.getElementById('search').value;
 
   $.ajax({
-    url: `https://www.googleapis.com/books/v1/volumes?q=${search}`,
+    url: `${mainURL}${search}&startIndex=${start}&maxResults=${step}`,
     dataType: 'json',
-    success: function (data) {
+    success: data => {
 
-      const parentElem = document.getElementById('appearBook');
-      parentElem.innerHTML = '';
-
-      for(let i = 0; i < data.items.length; i++){
+      for (let i = 0; i < data.items.length; i++) {
         createBook(data.items[i]);
       }
-
-      books = JSON.parse(JSON.stringify(data.items));
-
-      console.log(data);
+      books = [...data.items];
     },
     type: 'GET'
   })
+}
+
+function bookSearch () {
+
+  const parentElem = document.getElementById('appearBook');
+  parentElem.innerHTML = '';
+
+  makeAJAX();
+}
+
+function bookMore () {
+  start += step;
+  makeAJAX();
 }
 
 function createBook (elem) {
@@ -53,6 +63,7 @@ function showModal (elem) {
 function ready() {
 
   document.getElementById('buttonSearch').addEventListener('click', bookSearch, false);
+  document.getElementById('loadMore').addEventListener('click', bookMore, false);
 
   document.getElementById('appearBook').addEventListener('click', event => {
     const id = event.target.getAttribute('data-id');
