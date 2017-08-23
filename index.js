@@ -21,7 +21,7 @@ function makeAJAX () {
 }
 
 function bookSearch () {
-
+  start = 0;
   const parentElem = document.getElementById('appearBook');
   parentElem.innerHTML = '';
 
