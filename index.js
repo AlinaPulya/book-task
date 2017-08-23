@@ -1,7 +1,6 @@
 let books = [];
 let start = 0;
 let step = 12;
-const mainURL = 'https://www.googleapis.com/books/v1/volumes?q=';
 
 function fetchBooks() {
   const search = document.getElementById('search').value;
