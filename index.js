@@ -1,36 +1,38 @@
 let books = [];
 let start = 0;
 let step = 12;
-const mainURL = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-function makeAJAX () {
+function fetchBooks() {
   const search = document.getElementById('search').value;
+  const request = new XMLHttpRequest();
+  const mainURL = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-  $.ajax({
-    url: `${mainURL}${search}&startIndex=${start}&maxResults=${step}`,
-    dataType: 'json',
-    success: data => {
+  let params = `${encodeURIComponent(search)}&startIndex=${encodeURIComponent(start)}&maxResults=${encodeURIComponent(step)}`;
 
-      for (let i = 0; i < data.items.length; i++) {
-        createBook(data.items[i]);
-      }
-      books = [...data.items];
-    },
-    type: 'GET'
-  })
+  request.open('GET', `${mainURL}${params}`, true);
+
+  request.onreadystatechange = () => {
+    let data = JSON.parse(request.responseText);
+    for (let i = 0; i < data.items.length; i++) {
+      createBook(data.items[i]);
+    }
+    books = [...data.items];
+  }
+  request.send();
 }
 
-function bookSearch () {
 
+function bookSearch () {
+  start = 0;
   const parentElem = document.getElementById('appearBook');
   parentElem.innerHTML = '';
 
-  makeAJAX();
+  fetchBooks();
 }
 
 function bookMore () {
   start += step;
-  makeAJAX();
+  fetchBooks();
 }
 
 function createBook (elem) {
