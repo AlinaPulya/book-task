@@ -4,17 +4,15 @@ let step = 12;
 
 function fetchBooks() {
   const search = document.getElementById('search').value;
+  const request = new XMLHttpRequest();
+  const mainURL = 'https://www.googleapis.com/books/v1/volumes?q='
 
-  let params = encodeURIComponent(search) + '&startIndex=' + encodeURIComponent(start) +
+  let params = encodeURIComponent(`${search}`) + '&startIndex=' + encodeURIComponent(start) +
   '&maxResults=' + encodeURIComponent(step);
 
-  var request = new XMLHttpRequest();
+  request.open('GET', `${mainURL}${params}`, true);
 
-  request.open('GET', 'https://www.googleapis.com/books/v1/volumes?q='+params, true);
-
-
-
-  request.onreadystatechange = function() {
+  request.onreadystatechange = () => {
     let data = JSON.parse(request.responseText);
     for (let i = 0; i < data.items.length; i++) {
       createBook(data.items[i]);
