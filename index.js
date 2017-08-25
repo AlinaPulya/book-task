@@ -7,7 +7,7 @@ function fetchBooks() {
   const request = new XMLHttpRequest();
   const mainURL = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-  let params = `${search}&startIndex=${start}&maxResults=${step}`;
+  let params = `${encodeURIComponent(search)}&startIndex=${encodeURIComponent(start)}&maxResults=${encodeURIComponent(step)}`;
 
   request.open('GET', `${mainURL}${params}`, true);
 
