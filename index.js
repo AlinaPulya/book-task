@@ -3,26 +3,19 @@ let start = 0;
 let step = 12;
 
 class Book{
-  constructor(coverBook, nameBook, publisher, dataBookId, description){
-    this._coverBook = coverBook;
-    this._nameBook = nameBook;
-    this._publisher = publisher;
-    this._dataBookId = dataBookId;
-    this._title = nameBook;
-    this._description = description;
+  constructor (thumbnail, title, publisher, id, description) {
+    this.coverBook = thumbnail;
+    this.titleBook = title;
+    this.publisherBook = publisher;
+    this.dataBookId = id;
+    this.descriptionBook = description;
   }
   getBlock(){
-    const parentElem = document.getElementById('appearBook');
-    let elementBook = document.createElement('div');
-    const imgClassBootstrap = 'img-rounded';
-
-    elementBook.className = 'col-md-4';
-    elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${this._coverBook} alt="${this._nameBook}">` +
-    `<h3>${this._nameBook}</h3>` +
-    `<p align="justify">${this._publisher}</p>` +
+    return `<img class="img-rounded" src=${this.coverBook} alt="${this.titleBook}">` +
+    `<h3>${this.titleBook}</h3>` +
+    `<p align="justify">${this.publisherBook}</p>` +
     `<button type="button" class="btn btn-primary"` +
-    ` data-toggle="modal" data-id="${this._dataBookId}">Show more</button>`;
-    parentElem.appendChild(elementBook);
+    ` data-toggle="modal" data-id="${this.dataBookId}">Show more</button>`;
   }
 }
 
@@ -38,9 +31,12 @@ function fetchBooks() {
   request.onreadystatechange = () => {
     let data = JSON.parse(request.responseText);
     for (let i = 0; i < data.items.length; i++) {
-      createBook(data.items[i]);
+      let bookElement = new Book(data.items[i].volumeInfo.imageLinks.thumbnail, data.items[i].volumeInfo.title,
+      data.items[i].volumeInfo.publisher, data.items[i].id, data.items[i].volumeInfo.description);
+      createBook(bookElement);
+
+      books.push(bookElement);
     }
-    books = [...data.items];
   }
   request.send();
 }
@@ -59,39 +55,21 @@ function bookMore () {
   fetchBooks();
 }
 
-function createBook(elem){
+function createBook (elem) {
+    const parentElem = document.getElementById('appearBook');
+    let elementBook = document.createElement('div');
 
-  const book = new Book(elem.volumeInfo.imageLinks.thumbnail, elem.volumeInfo.title,
-    elem.volumeInfo.publisher, elem.id, elem.volumeInfo.description);
-    book.getBlock();
-
+    elementBook.className = 'col-md-4';
+    elementBook.innerHTML = elem.getBlock();
+    parentElem.appendChild(elementBook);
 }
-
-
-// function createBook (elem) {
-//     const parentElem = document.getElementById('appearBook');
-//     let elementBook = document.createElement('div');
-//     const coverBook = elem.volumeInfo.imageLinks.thumbnail;
-//     const nameBook = elem.volumeInfo.title;
-//     const publisher = elem.volumeInfo.publisher;
-//     const dataBookId = elem.id;
-//     const imgClassBootstrap = 'img-rounded';
-//
-//     elementBook.className = 'col-md-4';
-//     elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${coverBook} alt="${nameBook}">` +
-//     `<h3>${nameBook}</h3>` +
-//     `<p align="justify">${publisher}</p>` +
-//     `<button type="button" class="btn btn-primary"` +
-//     ` data-toggle="modal" data-id="${dataBookId}">Show more</button>`;
-//     parentElem.appendChild(elementBook);
-// }
 
 function showModal (elem) {
   let modalTitle = document.querySelector('h5.modal-title');
   let modalContent = document.querySelector('div.modal-body');
 
-  modalTitle.innerHTML = elem.volumeInfo.title;
-  modalContent.innerHTML = elem.volumeInfo.description;
+  modalTitle.innerHTML = elem.titleBook;
+  modalContent.innerHTML = elem.descriptionBook;
   $('#modal').modal('show');
 }
 
@@ -102,9 +80,11 @@ function ready() {
 
   document.getElementById('appearBook').addEventListener('click', event => {
     const id = event.target.getAttribute('data-id');
-    const book = books.find(item => item.id === id);
+    const book = books.find(item => item.dataBookId === id);
     showModal(book);
     });
+
+    console.log(books);
 }
 
 document.addEventListener('DOMContentLoaded', ready);
