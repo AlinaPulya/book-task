@@ -2,6 +2,30 @@ let books = [];
 let start = 0;
 let step = 12;
 
+class Book{
+  constructor(coverBook, nameBook, publisher, dataBookId, description){
+    this._coverBook = coverBook;
+    this._nameBook = nameBook;
+    this._publisher = publisher;
+    this._dataBookId = dataBookId;
+    this._title = nameBook;
+    this._description = description;
+  }
+  getBlock(){
+    const parentElem = document.getElementById('appearBook');
+    let elementBook = document.createElement('div');
+    const imgClassBootstrap = 'img-rounded';
+
+    elementBook.className = 'col-md-4';
+    elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${this._coverBook} alt="${this._nameBook}">` +
+    `<h3>${this._nameBook}</h3>` +
+    `<p align="justify">${this._publisher}</p>` +
+    `<button type="button" class="btn btn-primary"` +
+    ` data-toggle="modal" data-id="${this._dataBookId}">Show more</button>`;
+    parentElem.appendChild(elementBook);
+  }
+}
+
 function fetchBooks() {
   const search = document.getElementById('search').value;
   const request = new XMLHttpRequest();
@@ -35,23 +59,32 @@ function bookMore () {
   fetchBooks();
 }
 
-function createBook (elem) {
-    const parentElem = document.getElementById('appearBook');
-    let elementBook = document.createElement('div');
-    const coverBook = elem.volumeInfo.imageLinks.thumbnail;
-    const nameBook = elem.volumeInfo.title;
-    const publisher = elem.volumeInfo.publisher;
-    const dataBookId = elem.id;
-    const imgClassBootstrap = 'img-rounded';
+function createBook(elem){
 
-    elementBook.className = 'col-md-4';
-    elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${coverBook} alt="${nameBook}">` +
-    `<h3>${nameBook}</h3>` +
-    `<p align="justify">${publisher}</p>` +
-    `<button type="button" class="btn btn-primary"` +
-    ` data-toggle="modal" data-id="${dataBookId}">Show more</button>`;
-    parentElem.appendChild(elementBook);
+  const book = new Book(elem.volumeInfo.imageLinks.thumbnail, elem.volumeInfo.title,
+    elem.volumeInfo.publisher, elem.id, elem.volumeInfo.description);
+    book.getBlock();
+
 }
+
+
+// function createBook (elem) {
+//     const parentElem = document.getElementById('appearBook');
+//     let elementBook = document.createElement('div');
+//     const coverBook = elem.volumeInfo.imageLinks.thumbnail;
+//     const nameBook = elem.volumeInfo.title;
+//     const publisher = elem.volumeInfo.publisher;
+//     const dataBookId = elem.id;
+//     const imgClassBootstrap = 'img-rounded';
+//
+//     elementBook.className = 'col-md-4';
+//     elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${coverBook} alt="${nameBook}">` +
+//     `<h3>${nameBook}</h3>` +
+//     `<p align="justify">${publisher}</p>` +
+//     `<button type="button" class="btn btn-primary"` +
+//     ` data-toggle="modal" data-id="${dataBookId}">Show more</button>`;
+//     parentElem.appendChild(elementBook);
+// }
 
 function showModal (elem) {
   let modalTitle = document.querySelector('h5.modal-title');
