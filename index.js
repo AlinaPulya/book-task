@@ -36,7 +36,7 @@ function fetchBooks() {
       let bookElement = new Book(book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.title,
       book.volumeInfo.publisher, book.id, book.volumeInfo.description);
 
-      createBook(bookElement);
+      createBook(bookElement.getBlock());
       books.push(bookElement);
     }
   }
@@ -62,7 +62,7 @@ function createBook (elem) {
     let elementBook = document.createElement('div');
 
     elementBook.className = 'col-md-4';
-    elementBook.innerHTML = elem.getBlock();
+    elementBook.innerHTML = elem;
     parentElem.appendChild(elementBook);
 }
 
