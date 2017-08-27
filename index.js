@@ -4,11 +4,11 @@ let step = 12;
 
 class Book{
   constructor (thumbnail, title, publisher, id, description) {
-    this.coverBook = thumbnail;
-    this.titleBook = title;
-    this.publisherBook = publisher;
+    this.coverBook = thumbnail || 'Content is unavailable';
+    this.titleBook = title || 'Content is unavailable';
+    this.publisherBook = publisher || 'Content is unavailable';
     this.dataBookId = id;
-    this.descriptionBook = description;
+    this.descriptionBook = description || 'Content is unavailable';
   }
   getBlock(){
     return `<img class="img-rounded" src=${this.coverBook} alt="${this.titleBook}">` +
@@ -30,11 +30,13 @@ function fetchBooks() {
 
   request.onreadystatechange = () => {
     let data = JSON.parse(request.responseText);
-    for (let i = 0; i < data.items.length; i++) {
-      let bookElement = new Book(data.items[i].volumeInfo.imageLinks.thumbnail, data.items[i].volumeInfo.title,
-      data.items[i].volumeInfo.publisher, data.items[i].id, data.items[i].volumeInfo.description);
-      createBook(bookElement);
+    for(let book of Array.from(data.items))
+    {
 
+      let bookElement = new Book(book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.title,
+      book.volumeInfo.publisher, book.id, book.volumeInfo.description);
+
+      createBook(bookElement);
       books.push(bookElement);
     }
   }
@@ -84,7 +86,7 @@ function ready() {
     showModal(book);
     });
 
-    console.log(books);
+    //console.log(books);
 }
 
 document.addEventListener('DOMContentLoaded', ready);
