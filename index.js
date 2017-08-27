@@ -2,6 +2,23 @@ let books = [];
 let start = 0;
 let step = 12;
 
+class Book{
+  constructor (thumbnail, title, publisher, id, description) {
+    this.coverBook = thumbnail || 'Content is unavailable';
+    this.titleBook = title || 'Content is unavailable';
+    this.publisherBook = publisher || 'Content is unavailable';
+    this.dataBookId = id;
+    this.descriptionBook = description || 'Content is unavailable';
+  }
+  getBlock(){
+    return `<img class="img-rounded" src=${this.coverBook} alt="${this.titleBook}">` +
+    `<h3>${this.titleBook}</h3>` +
+    `<p align="justify">${this.publisherBook}</p>` +
+    `<button type="button" class="btn btn-primary"` +
+    ` data-toggle="modal" data-id="${this.dataBookId}">Show more</button>`;
+  }
+}
+
 function fetchBooks() {
   const search = document.getElementById('search').value;
   const request = new XMLHttpRequest();
@@ -13,10 +30,15 @@ function fetchBooks() {
 
   request.onreadystatechange = () => {
     let data = JSON.parse(request.responseText);
-    for (let i = 0; i < data.items.length; i++) {
-      createBook(data.items[i]);
+    for(let book of Array.from(data.items))
+    {
+
+      let bookElement = new Book(book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.title,
+      book.volumeInfo.publisher, book.id, book.volumeInfo.description);
+
+      createBook(bookElement.getBlock());
+      books.push(bookElement);
     }
-    books = [...data.items];
   }
   request.send();
 }
@@ -38,18 +60,9 @@ function bookMore () {
 function createBook (elem) {
     const parentElem = document.getElementById('appearBook');
     let elementBook = document.createElement('div');
-    const coverBook = elem.volumeInfo.imageLinks.thumbnail;
-    const nameBook = elem.volumeInfo.title;
-    const publisher = elem.volumeInfo.publisher;
-    const dataBookId = elem.id;
-    const imgClassBootstrap = 'img-rounded';
 
     elementBook.className = 'col-md-4';
-    elementBook.innerHTML = `<img class="${imgClassBootstrap}" src=${coverBook} alt="${nameBook}">` +
-    `<h3>${nameBook}</h3>` +
-    `<p align="justify">${publisher}</p>` +
-    `<button type="button" class="btn btn-primary"` +
-    ` data-toggle="modal" data-id="${dataBookId}">Show more</button>`;
+    elementBook.innerHTML = elem;
     parentElem.appendChild(elementBook);
 }
 
@@ -57,8 +70,8 @@ function showModal (elem) {
   let modalTitle = document.querySelector('h5.modal-title');
   let modalContent = document.querySelector('div.modal-body');
 
-  modalTitle.innerHTML = elem.volumeInfo.title;
-  modalContent.innerHTML = elem.volumeInfo.description;
+  modalTitle.innerHTML = elem.titleBook;
+  modalContent.innerHTML = elem.descriptionBook;
   $('#modal').modal('show');
 }
 
@@ -69,9 +82,11 @@ function ready() {
 
   document.getElementById('appearBook').addEventListener('click', event => {
     const id = event.target.getAttribute('data-id');
-    const book = books.find(item => item.id === id);
+    const book = books.find(item => item.dataBookId === id);
     showModal(book);
     });
+
+    //console.log(books);
 }
 
 document.addEventListener('DOMContentLoaded', ready);
